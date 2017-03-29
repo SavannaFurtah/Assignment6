@@ -50,7 +50,7 @@ public class MessageBoardREST {
     @POST
     @Consumes("application/json")
     @Produces("application/json")
-    public JsonObject postJson(JsonObject json) {
+    public JsonObject postJson(JsonObject json) throws SQLException {
         return msgCtrl.addJson(json);
         
     }
@@ -92,12 +92,14 @@ public class MessageBoardREST {
     
     @DELETE
     @Path("{id}")
-    @Consumes("application/json")
-    @Produces("application/json")
     public Response delete(@PathParam("id") int id){
         if (msgCtrl.deleteById(id)){
             return Response.ok().build();
         }
-        else return Response.status(Response.Status.NOT_FOUND).build();
+        else 
+        {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        }
     }
-}
+
